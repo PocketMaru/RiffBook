@@ -1,5 +1,21 @@
 # RiffBook project plan
 
+## Review branch workflow — October 21
+
+- Foundation work is isolated on review/model-persistence-foundation for
+  Richard (@rlziii). Further work starts on feature/remaining-persistence-clients,
+  based on that review branch, so it can proceed before review completes.
+- Preserve the review branch while feedback is pending. Future continuation PRs
+  should initially target the foundation branch to show only follow-up changes;
+  retarget/rebase onto main after the foundation merges, according to merge style.
+- CODEOWNERS assigns all files to @rlziii. It only becomes the main branch's
+  ownership policy after it is merged into main.
+- Enforcement requires main branch protection: pull requests, one approval,
+  code-owner approval, dismiss stale approvals, no administrator bypass, no
+  force pushes or deletions. Current Git credential lacks administration API
+  permission; enforcement is pending admin configuration, not yet guaranteed.
+- Uncommitted DESIGN.md and Concepts/ remain local and outside the review PR.
+
 ## Grouped local commits — October 21
 
 - User now uses Sublime Merge. Organized app work into separate commits for
