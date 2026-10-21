@@ -1,12 +1,11 @@
 import SwiftUI
 import ComposableArchitecture
+import DesignSystem
+
 public struct ContentView: View {
     public var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            AppView(store: AppRoot.store)
         }
         .padding()
     }
