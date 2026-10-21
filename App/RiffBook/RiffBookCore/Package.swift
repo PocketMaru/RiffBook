@@ -17,6 +17,14 @@ let package = Package(
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture",
             from: "1.0.0"
+        ),
+        .package(
+            url: "https://github.com/pointfreeco/sqlite-data",
+            from: "1.0.0"
+        ),
+        .package(
+            url: "git@github.com:PocketMaru/AmbidDesignSystem",
+            from: "0.9.0"
         )
     ],
     targets: [
@@ -26,7 +34,18 @@ let package = Package(
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
+                ),
+                .product(
+                    name: "SQLiteData",
+                    package: "sqlite-data"
+                ),
+                .product(
+                    name: "DesignSystem",
+                    package: "AmbidDesignSystem"
                 )
+            ],
+            resources: [
+                .process("Theme/Assets.xcassets"),
             ],
             swiftSettings: [
                 .enableUpcomingFeature("ApproachableConcurrency"),
