@@ -1,7 +1,7 @@
 import Foundation
 import Dependencies
 
-enum SongClientError: Error {
+enum ClientError: Error {
     case notYetImplemented
 }
 
@@ -31,13 +31,13 @@ extension SongClient: DependencyKey {
 extension SongClient: TestDependencyKey {
     static let testValue = SongClient(
         create: { _ in
-            throw SongClientError.notYetImplemented
+            throw ClientError.notYetImplemented
         },
         update: { _ in
-            throw SongClientError.notYetImplemented
+            throw ClientError.notYetImplemented
         },
         delete: { _ in
-            throw SongClientError.notYetImplemented
+            throw ClientError.notYetImplemented
         }
     )
 }

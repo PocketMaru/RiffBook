@@ -1,9 +1,6 @@
 import Foundation
 import SQLiteData
 
-enum RepoError: Error {
-    case modelNotFound
-}
 struct SongRepo {
     @Dependency(\.defaultDatabase) private var database
     
