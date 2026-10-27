@@ -83,6 +83,8 @@ func appDatabase() throws -> any DatabaseWriter {
             """
             CREATE TABLE "recordingRecords" (
                 "id" TEXT PRIMARY KEY NOT NULL ON CONFLICT REPLACE DEFAULT (uuid()),
+                "ownerType" TEXT NOT NULL,
+                "ownerID" TEXT NOT NULL,
                 "name" TEXT NOT NULL,
                 "mediaType" TEXT NOT NULL,
                 "fileName" TEXT NOT NULL,
