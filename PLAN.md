@@ -1,5 +1,61 @@
 # RiffBook project plan
 
+## Review handoff / resume here — October 27, 2026
+
+- Current continuation branch: `feature/remaining-persistence-clients`. Preserve
+  `review/model-persistence-foundation` and foundation PR #1 while Richard reviews.
+- Recording domain/record/SQL now include required ownerType and ownerID.
+  RecordingRepo implements create, nonblank-name validation, owner existence
+  validation on transfer, rename, delete, and bulk delete. A synchronous bulk
+  helper accepts an existing Database for parent transactions.
+- RiffClient forwards to RiffRepo. Riff update validates recording existence
+  and favorite membership. Riff delete fetches the parent and deletes it and
+  its listed recordings in one database transaction.
+- This is an IN-PROGRESS checkpoint, not completed relationship handling:
+  RecordingClient live operations still throw notYetImplemented; SessionClient
+  and SessionRepo are placeholders. AppFeature/AppView remain unfinished.
+- Resume with recording ownership integrity: create must validate the parent
+  and append membership; transfer must remove old membership, clear a moved
+  favorite, and add new membership atomically. Standalone recording deletion
+  must coordinate owner membership/favorite cleanup.
+- Riff cleanup currently trusts its recording-ID array. Validate ownership or
+  query recordings by ownerType + ownerID to avoid deleting another owner's
+  recording or leaving owned recordings behind. Remove deleted riff references
+  from songs in the same transaction. Validate song/riff create references too.
+- Recording.Create empty-name Take N generation and media-file lifecycle are
+  not implemented. File deletion cannot be rolled back with the SQL transaction;
+  settle retry/recovery before claiming durable deletion complete.
+- Next: finish these relations, wire RecordingClient, implement sessions, verify
+  Swift persistence round-trips, then start reducers/views. No need to rewrite
+  the current model/client/repository layering.
+- Review validation: source inspection; no passing full build claimed. October 26
+  unsigned simulator build stopped before app compilation because Xcode required
+  package macro approval. Existing tests are placeholders. Minor trailing
+  whitespace remains in user-authored edits; no behavior fixes made for handoff.
+- Push this checkpoint to the continuation branch; it does not automatically
+  update the foundation PR. Design document changes are included for context;
+  untracked Concepts/ browser exports remain separate from the app checkpoint.
+
+## Recording ownership schema — October 22
+
+- Added required TEXT ownerType and ownerID columns to the starter recordings
+  schema for one riff/session owner. RecordingRecord and conversion updates
+  remain user work; no parent-existence or ownership-transfer checks added here.
+- Verified the CREATE TABLE and an owned-record insert in memory; missing owner
+  values are rejected. This edits the development schema, not an upgrade migration
+  for existing production data. Other source and Git staging left unchanged.
+
+## Song persistence checkpoint — October 22
+
+- Reviewed song model/record, client forwarding, and create/update/delete flow.
+  Most implementation is already in the foundation PR; this follow-up extracts
+  shared RepoError and generalizes the placeholder ClientError name.
+- SQL-level checks passed for insert, update with a nonempty JSON riff-ID array,
+  creation-date preservation, missing-row detection, and deletion. These checks
+  do not execute Swift repository/client code; runtime round-trips remain pending.
+- Root feature/view remain unfinished. No build-success claim for this snapshot.
+  Riff implementation, scene changes, and design/preview work remain separate.
+
 ## Review branch workflow — October 21
 
 - Foundation work is isolated on review/model-persistence-foundation for
@@ -10,10 +66,15 @@
   retarget/rebase onto main after the foundation merges, according to merge style.
 - CODEOWNERS assigns all files to @rlziii. It only becomes the main branch's
   ownership policy after it is merged into main.
-- Enforcement requires main branch protection: pull requests, one approval,
-  code-owner approval, dismiss stale approvals, no administrator bypass, no
-  force pushes or deletions. Current Git credential lacks administration API
-  permission; enforcement is pending admin configuration, not yet guaranteed.
+- Enabled and verified active GitHub ruleset Protect main (25577962), targeting
+  the default branch main: pull requests, one approval, code-owner approval,
+  stale approval dismissal, and resolved review conversations are required.
+  Bypass list is empty; force pushes and branch deletion are blocked. Matched
+  GameTime's safeguards and added required code-owner approval. Main ownership
+  specifically requiring Richard takes effect after CODEOWNERS merges.
+- Foundation PR: https://github.com/PocketMaru/RiffBook/pull/1; @rlziii requested.
+- Use Sublime Merge to push feature branches, then open a PR. Replies alone do
+  not resolve review threads; resolve conversations after addressing feedback.
 - Uncommitted DESIGN.md and Concepts/ remain local and outside the review PR.
 
 ## Grouped local commits — October 21
