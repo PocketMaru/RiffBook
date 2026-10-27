@@ -107,6 +107,9 @@
 			mainGroup = 5306D6653075E6E900F3A612;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+			packageReferences = (
+				A09100000000000000000001 /* RiffBookCore */,
+			);
 			productRefGroup = 5306D66F3075E6E900F3A612 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -343,9 +346,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+        A09100000000000000000001 /* RiffBookCore */ = {
+            isa = XCLocalSwiftPackageReference;
+            relativePath = RiffBookCore;
+        };
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		5306D685307EEF8600F3A612 /* RiffBookCore */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A09100000000000000000001 /* RiffBookCore */;
 			productName = RiffBookCore;
 		};
 /* End XCSwiftPackageProductDependency section */
