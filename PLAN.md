@@ -1,5 +1,17 @@
 # RiffBook project plan
 
+## Combined review — October 27, 2026
+
+- User chose one PR for the foundation and continuation checkpoint. Fast-forward
+  `review/model-persistence-foundation` to include `feature/remaining-persistence-clients`
+  and push it to update PR #1; preserve grouped commits, with no main merge.
+- PR #1 now covers the in-progress recording/riff implementation as well as the
+  foundation. The unfinished-work checklist immediately below remains the resume
+  point. This supersedes the earlier instruction to keep the two review scopes apart.
+- Continue development on `feature/remaining-persistence-clients`. Merge review
+  fixes from the review branch into it as Richard's feedback is addressed; only
+  bring later feature work into PR #1 deliberately.
+
 ## Review handoff / resume here — October 27, 2026
 
 - Current continuation branch: `feature/remaining-persistence-clients`. Preserve
