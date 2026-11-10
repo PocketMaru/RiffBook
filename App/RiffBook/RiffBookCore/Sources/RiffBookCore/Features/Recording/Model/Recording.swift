@@ -1,25 +1,20 @@
 import Foundation
 import SQLiteData
 
-enum RecordingOwnerType: String, Codable, QueryBindable {
-    case session
-    case riff
-}
-
 @Selection
 struct Recording: Decodable, Identifiable {
     let id: UUID
-    var ownerType: RecordingOwnerType
-    var ownerID: UUID
+    var riffID: Riff.ID?
+    var sessionID: Session.ID?
     var name: String
     let mediaType: MediaType
     let fileName: String
     let createdAt: Date
     
     struct Create: Encodable {
+        var riffID: UUID?
+        var sessionID: UUID?
         var name: String
-        var ownerType: RecordingOwnerType
-        var ownerID: UUID
         let mediaType: MediaType
         let fileName: String
     }
@@ -36,13 +31,11 @@ struct Recording: Decodable, Identifiable {
     
     struct UpdateOwner: Encodable {
         let id: Recording.ID
-        var ownerType: RecordingOwnerType
-        var ownerID: UUID
+        var riffID: Riff.ID
         
-        init(recording: Recording) {
+        init(recording: Recording, destinationRiffID: Riff.ID) {
             id = recording.id
-            ownerType = recording.ownerType
-            ownerID = recording.ownerID
+            riffID = destinationRiffID
         }
     }
 }

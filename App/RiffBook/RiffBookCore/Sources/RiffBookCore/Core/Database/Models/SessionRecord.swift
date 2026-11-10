@@ -5,16 +5,13 @@ import SQLiteData
 struct SessionRecord: Identifiable {
     let id: UUID
     var name: String
-    
-    @Column(as: [Recording.ID].JSONRepresentation.self)
-    var recordings: [Recording.ID]
-    
     var creationDate: Date
-    
+}
+
+extension SessionRecord {
     init(_ model: Session) {
         self.id = model.id
         self.name = model.name
-        self.recordings = model.recordings
         self.creationDate = model.creationDate
     }
 }
